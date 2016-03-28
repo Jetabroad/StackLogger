@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Jetabroad.StackLogger.Logger", "Jetabroad.StackLogger.Logger\Jetabroad.StackLogger.Logger.vcxproj", "{9D556B37-6A24-44C6-9AF1-C47D203857EB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jetabroad.StackLogger.Api", "Jetabroad.StackLogger.Api\Jetabroad.StackLogger.Api.csproj", "{69F06C15-30B7-43BF-883B-7408C4C8C0BA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9D556B37-6A24-44C6-9AF1-C47D203857EB} = {9D556B37-6A24-44C6-9AF1-C47D203857EB}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jetabroad.StackLogger.Api.Testing", "Jetabroad.StackLogger.Api.Testing\Jetabroad.StackLogger.Api.Testing.csproj", "{80DFA55C-C04F-4839-815C-E05AD5090E5F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9D556B37-6A24-44C6-9AF1-C47D203857EB}.Debug|x64.ActiveCfg = Debug|x64
+		{9D556B37-6A24-44C6-9AF1-C47D203857EB}.Debug|x64.Build.0 = Debug|x64
+		{9D556B37-6A24-44C6-9AF1-C47D203857EB}.Debug|x86.ActiveCfg = Debug|Win32
+		{9D556B37-6A24-44C6-9AF1-C47D203857EB}.Debug|x86.Build.0 = Debug|Win32
+		{9D556B37-6A24-44C6-9AF1-C47D203857EB}.Release|x64.ActiveCfg = Release|x64
+		{9D556B37-6A24-44C6-9AF1-C47D203857EB}.Release|x64.Build.0 = Release|x64
+		{9D556B37-6A24-44C6-9AF1-C47D203857EB}.Release|x86.ActiveCfg = Release|Win32
+		{9D556B37-6A24-44C6-9AF1-C47D203857EB}.Release|x86.Build.0 = Release|Win32
+		{69F06C15-30B7-43BF-883B-7408C4C8C0BA}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{69F06C15-30B7-43BF-883B-7408C4C8C0BA}.Debug|x64.Build.0 = Debug|Any CPU
+		{69F06C15-30B7-43BF-883B-7408C4C8C0BA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{69F06C15-30B7-43BF-883B-7408C4C8C0BA}.Debug|x86.Build.0 = Debug|Any CPU
+		{69F06C15-30B7-43BF-883B-7408C4C8C0BA}.Release|x64.ActiveCfg = Release|Any CPU
+		{69F06C15-30B7-43BF-883B-7408C4C8C0BA}.Release|x64.Build.0 = Release|Any CPU
+		{69F06C15-30B7-43BF-883B-7408C4C8C0BA}.Release|x86.ActiveCfg = Release|Any CPU
+		{69F06C15-30B7-43BF-883B-7408C4C8C0BA}.Release|x86.Build.0 = Release|Any CPU
+		{80DFA55C-C04F-4839-815C-E05AD5090E5F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{80DFA55C-C04F-4839-815C-E05AD5090E5F}.Debug|x64.Build.0 = Debug|Any CPU
+		{80DFA55C-C04F-4839-815C-E05AD5090E5F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{80DFA55C-C04F-4839-815C-E05AD5090E5F}.Debug|x86.Build.0 = Debug|Any CPU
+		{80DFA55C-C04F-4839-815C-E05AD5090E5F}.Release|x64.ActiveCfg = Release|Any CPU
+		{80DFA55C-C04F-4839-815C-E05AD5090E5F}.Release|x86.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

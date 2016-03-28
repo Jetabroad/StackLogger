@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\CLR Interface">
+      <UniqueIdentifier>{69bb320c-b487-496a-8d7e-d42a7561b729}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Managed Interface">
+      <UniqueIdentifier>{e37c63e5-6820-4c22-b7fc-ac78b9e45081}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logging">
+      <UniqueIdentifier>{6804bf14-6aec-4e5d-862d-e0443462ae5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Managed Values">
+      <UniqueIdentifier>{b93b2241-de85-4cce-a922-b4d97b749214}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Managed Exception">
+      <UniqueIdentifier>{6135520b-8c90-45aa-8182-50ebdc78826b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TLS">
+      <UniqueIdentifier>{63b36518-4315-4980-a301-5785729071fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\VEH">
+      <UniqueIdentifier>{8c1fc426-f8cd-4a7d-a8f9-b8372883e4f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\API">
+      <UniqueIdentifier>{35e8915c-6938-41f9-b20f-6998fe411f76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Configurations">
+      <UniqueIdentifier>{709a5f33-5f2b-4e84-913f-918104e6c418}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ArrayValue.h">
+      <Filter>Source Files\Managed Values</Filter>
+    </ClInclude>
+    <ClInclude Include="NullValue.h">
+      <Filter>Source Files\Managed Values</Filter>
+    </ClInclude>
+    <ClInclude Include="RawValue.h">
+      <Filter>Source Files\Managed Values</Filter>
+    </ClInclude>
+    <ClInclude Include="StringValue.h">
+      <Filter>Source Files\Managed Values</Filter>
+    </ClInclude>
+    <ClInclude Include="UnknownValue.h">
+      <Filter>Source Files\Managed Values</Filter>
+    </ClInclude>
+    <ClInclude Include="ClrDataTarget.h">
+      <Filter>Source Files\CLR Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="DataInterface.h">
+      <Filter>Source Files\Managed Interface</Filter>
+    </ClInclude>
+    <ClInclude Include="ExceptionDumpingMessage.h">
+      <Filter>Source Files\Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="ExceptionDumpingMessageCollection.h">
+      <Filter>Source Files\Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="DumpedData.h">
+      <Filter>Source Files\Managed Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameData.h">
+      <Filter>Source Files\Managed Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="MethodParameter.h">
+      <Filter>Source Files\Managed Exception</Filter>
+    </ClInclude>
+    <ClInclude Include="PCH.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlatformTarget.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TLS.h">
+      <Filter>Source Files\TLS</Filter>
+    </ClInclude>
+    <ClInclude Include="TlsValue.h">
+      <Filter>Source Files\TLS</Filter>
+    </ClInclude>
+    <ClInclude Include="VectoredExceptionHandler.h">
+      <Filter>Source Files\VEH</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalConfiguration.h">
+      <Filter>Source Files\Configurations</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="PCH.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ArrayValue.cpp">
+      <Filter>Source Files\Managed Values</Filter>
+    </ClCompile>
+    <ClCompile Include="NullValue.cpp">
+      <Filter>Source Files\Managed Values</Filter>
+    </ClCompile>
+    <ClCompile Include="RawValue.cpp">
+      <Filter>Source Files\Managed Values</Filter>
+    </ClCompile>
+    <ClCompile Include="StringValue.cpp">
+      <Filter>Source Files\Managed Values</Filter>
+    </ClCompile>
+    <ClCompile Include="UnknownValue.cpp">
+      <Filter>Source Files\Managed Values</Filter>
+    </ClCompile>
+    <ClCompile Include="ClrDataTarget.cpp">
+      <Filter>Source Files\CLR Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="DataInterface.cpp">
+      <Filter>Source Files\Managed Interface</Filter>
+    </ClCompile>
+    <ClCompile Include="DumpedData.cpp">
+      <Filter>Source Files\Managed Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="ExceptionDumpingMessage.cpp">
+      <Filter>Source Files\Logging</Filter>
+    </ClCompile>
+    <ClCompile Include="ExceptionDumpingMessageCollection.cpp">
+      <Filter>Source Files\Logging</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameData.cpp">
+      <Filter>Source Files\Managed Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="MethodParameter.cpp">
+      <Filter>Source Files\Managed Exception</Filter>
+    </ClCompile>
+    <ClCompile Include="TLS.cpp">
+      <Filter>Source Files\TLS</Filter>
+    </ClCompile>
+    <ClCompile Include="TlsValue.cpp">
+      <Filter>Source Files\TLS</Filter>
+    </ClCompile>
+    <ClCompile Include="VectoredExceptionHandler.cpp">
+      <Filter>Source Files\VEH</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalConfiguration.cpp">
+      <Filter>Source Files\Configurations</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Jetabroad.StackLogger.Logger.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="clrdata.idl">
+      <Filter>Source Files\CLR Interface</Filter>
+    </Midl>
+    <Midl Include="xclrdata.idl">
+      <Filter>Source Files\CLR Interface</Filter>
+    </Midl>
+    <Midl Include="Jetabroad.StackLogger.Logger.idl">
+      <Filter>Source Files\API</Filter>
+    </Midl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Jetabroad.StackLogger.Logger.def">
+      <Filter>Source Files\API</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="Jetabroad.StackLogger.Logger.manifest" />
+  </ItemGroup>
+</Project>

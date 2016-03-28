@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{9D556B37-6A24-44C6-9AF1-C47D203857EB}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>JetabroadLoggingStackDumper</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(ProjectDir)bin\</OutDir>
+    <IntDir>$(ProjectDir)obj\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(ProjectDir)bin\</OutDir>
+    <IntDir>$(ProjectDir)obj\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjectDir)bin\</OutDir>
+    <IntDir>$(ProjectDir)obj\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjectDir)bin\</OutDir>
+    <IntDir>$(ProjectDir)obj\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;JETABROADLOGGINGSTACKDUMPER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <PrecompiledHeaderFile>PCH.h</PrecompiledHeaderFile>
+      <ExceptionHandling>Async</ExceptionHandling>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <ModuleDefinitionFile>Jetabroad.StackLogger.Logger.def</ModuleDefinitionFile>
+      <AdditionalDependencies>dbghelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Manifest>
+      <AssemblyIdentity>Jetabroad.StackLogger.Logger, processorArchitecture=*, version=1.0.0.0, type=win32</AssemblyIdentity>
+      <AdditionalManifestFiles>Jetabroad.StackLogger.Logger.manifest %(AdditionalManifestFiles)</AdditionalManifestFiles>
+    </Manifest>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;JETABROADLOGGINGSTACKDUMPER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <PrecompiledHeaderFile>PCH.h</PrecompiledHeaderFile>
+      <ExceptionHandling>Async</ExceptionHandling>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableUAC>false</EnableUAC>
+      <ModuleDefinitionFile>Jetabroad.StackLogger.Logger.def</ModuleDefinitionFile>
+      <AdditionalDependencies>dbghelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Manifest>
+      <AssemblyIdentity>Jetabroad.StackLogger.Logger, processorArchitecture=*, version=1.0.0.0, type=win32</AssemblyIdentity>
+      <AdditionalManifestFiles>Jetabroad.StackLogger.Logger.manifest %(AdditionalManifestFiles)</AdditionalManifestFiles>
+    </Manifest>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;JETABROADLOGGINGSTACKDUMPER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <PrecompiledHeaderFile>PCH.h</PrecompiledHeaderFile>
+      <ExceptionHandling>Async</ExceptionHandling>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableUAC>false</EnableUAC>
+      <ModuleDefinitionFile>Jetabroad.StackLogger.Logger.def</ModuleDefinitionFile>
+      <AdditionalDependencies>dbghelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Manifest>
+      <AssemblyIdentity>Jetabroad.StackLogger.Logger, processorArchitecture=*, version=1.0.0.0, type=win32</AssemblyIdentity>
+      <AdditionalManifestFiles>Jetabroad.StackLogger.Logger.manifest %(AdditionalManifestFiles)</AdditionalManifestFiles>
+    </Manifest>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;JETABROADLOGGINGSTACKDUMPER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
+      <PrecompiledHeaderFile>PCH.h</PrecompiledHeaderFile>
+      <ExceptionHandling>Async</ExceptionHandling>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableUAC>false</EnableUAC>
+      <ModuleDefinitionFile>Jetabroad.StackLogger.Logger.def</ModuleDefinitionFile>
+      <AdditionalDependencies>dbghelp.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <Manifest>
+      <AssemblyIdentity>Jetabroad.StackLogger.Logger, processorArchitecture=*, version=1.0.0.0, type=win32</AssemblyIdentity>
+      <AdditionalManifestFiles>Jetabroad.StackLogger.Logger.manifest %(AdditionalManifestFiles)</AdditionalManifestFiles>
+    </Manifest>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="ArrayValue.h" />
+    <ClInclude Include="ClrDataTarget.h" />
+    <ClInclude Include="DumpedData.h" />
+    <ClInclude Include="DataInterface.h" />
+    <ClInclude Include="ExceptionDumpingMessage.h" />
+    <ClInclude Include="ExceptionDumpingMessageCollection.h" />
+    <ClInclude Include="FrameData.h" />
+    <ClInclude Include="GlobalConfiguration.h" />
+    <ClInclude Include="MethodParameter.h" />
+    <ClInclude Include="NullValue.h" />
+    <ClInclude Include="PCH.h" />
+    <ClInclude Include="PlatformTarget.h" />
+    <ClInclude Include="RawValue.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="StringValue.h" />
+    <ClInclude Include="TLS.h" />
+    <ClInclude Include="TlsValue.h" />
+    <ClInclude Include="UnknownValue.h" />
+    <ClInclude Include="VectoredExceptionHandler.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ArrayValue.cpp" />
+    <ClCompile Include="ClrDataTarget.cpp" />
+    <ClCompile Include="DumpedData.cpp" />
+    <ClCompile Include="DataInterface.cpp" />
+    <ClCompile Include="ExceptionDumpingMessage.cpp" />
+    <ClCompile Include="ExceptionDumpingMessageCollection.cpp" />
+    <ClCompile Include="FrameData.cpp" />
+    <ClCompile Include="GlobalConfiguration.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MethodParameter.cpp" />
+    <ClCompile Include="NullValue.cpp" />
+    <ClCompile Include="PCH.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="RawValue.cpp" />
+    <ClCompile Include="StringValue.cpp" />
+    <ClCompile Include="TLS.cpp" />
+    <ClCompile Include="TlsValue.cpp" />
+    <ClCompile Include="UnknownValue.cpp" />
+    <ClCompile Include="VectoredExceptionHandler.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Jetabroad.StackLogger.Logger.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="clrdata.idl">
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).h</HeaderFileName>
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).h</HeaderFileName>
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).h</HeaderFileName>
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).h</HeaderFileName>
+    </Midl>
+    <Midl Include="Jetabroad.StackLogger.Logger.idl" />
+    <Midl Include="xclrdata.idl">
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">%(Filename).h</HeaderFileName>
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">%(Filename).h</HeaderFileName>
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(Filename).h</HeaderFileName>
+      <HeaderFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(Filename).h</HeaderFileName>
+    </Midl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Jetabroad.StackLogger.Logger.def" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="Jetabroad.StackLogger.Logger.manifest" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\wtl.9.1\build\native\wtl.targets" Condition="Exists('..\packages\wtl.9.1\build\native\wtl.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\wtl.9.1\build\native\wtl.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\wtl.9.1\build\native\wtl.targets'))" />
+  </Target>
+</Project>

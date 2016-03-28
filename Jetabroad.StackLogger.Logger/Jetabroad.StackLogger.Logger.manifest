@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+    <file name="Jetabroad.StackLogger.Logger.dll">
+        <comClass clsid="{C3B2FDD9-79FB-43B4-B966-2283AC091D95}" threadingModel="Both" tlbid="{A153AF4D-36CE-4053-9C18-9F099CABF249}"/>
+        <comClass clsid="{C625CB3F-78AB-46E2-BAA4-431C529DAFD8}" threadingModel="Both" tlbid="{A153AF4D-36CE-4053-9C18-9F099CABF249}"/>
+        <typelib tlbid="{A153AF4D-36CE-4053-9C18-9F099CABF249}" version="1.0" helpdir="" flags="HASDISKIMAGE"/>
+    </file>
+    <comInterfaceExternalProxyStub name="IGlobalConfiguration" iid="{669855E8-B4ED-46CB-9118-A80FA42A7F57}" tlbid="{A153AF4D-36CE-4053-9C18-9F099CABF249}" proxyStubClsid32="{00020424-0000-0000-C000-000000000046}"/>
+    <comInterfaceExternalProxyStub name="IDumpedData" iid="{E0B138FC-48D7-4D1E-B6BF-D708EAEC9711}" tlbid="{A153AF4D-36CE-4053-9C18-9F099CABF249}" proxyStubClsid32="{00020424-0000-0000-C000-000000000046}"/>
+    <comInterfaceExternalProxyStub name="IDataInterface" iid="{7ACBB0F4-B56D-4D07-AF2F-C786E96A6645}" tlbid="{A153AF4D-36CE-4053-9C18-9F099CABF249}" proxyStubClsid32="{00020424-0000-0000-C000-000000000046}"/>
+    <comInterfaceExternalProxyStub name="IFrameData" iid="{A86EE8ED-B067-4366-8F23-9DD2DB09F385}" tlbid="{A153AF4D-36CE-4053-9C18-9F099CABF249}" proxyStubClsid32="{00020424-0000-0000-C000-000000000046}"/>
+    <comInterfaceExternalProxyStub name="IMethodParameter" iid="{CF4C6D5F-3758-4812-8A3D-A2EB0956BB5D}" tlbid="{A153AF4D-36CE-4053-9C18-9F099CABF249}" proxyStubClsid32="{00020424-0000-0000-C000-000000000046}"/>
+    <comInterfaceExternalProxyStub name="IArrayValue" iid="{ABAFE622-7FE8-40F4-9F33-17406169A604}" tlbid="{A153AF4D-36CE-4053-9C18-9F099CABF249}" proxyStubClsid32="{00020424-0000-0000-C000-000000000046}"/>
+    <comInterfaceExternalProxyStub name="IStringValue" iid="{DB4DE73F-5DF3-4A28-B900-0C9AC7A47EBB}" tlbid="{A153AF4D-36CE-4053-9C18-9F099CABF249}" proxyStubClsid32="{00020424-0000-0000-C000-000000000046}"/>
+    <comInterfaceExternalProxyStub name="IRawValue" iid="{E4F88112-CDA2-4762-AC42-349AD538B2A8}" tlbid="{A153AF4D-36CE-4053-9C18-9F099CABF249}" proxyStubClsid32="{00020424-0000-0000-C000-000000000046}"/>
+    <comInterfaceExternalProxyStub name="INullValue" iid="{1FDAB9BD-3BC9-4EDF-A6FD-FD3DA8FBFE6F}" tlbid="{A153AF4D-36CE-4053-9C18-9F099CABF249}" proxyStubClsid32="{00020424-0000-0000-C000-000000000046}"/>
+    <comInterfaceExternalProxyStub name="IExceptionDumpingMessage" iid="{BCFF3103-E5B8-4807-9F36-E274E619CE0E}" tlbid="{A153AF4D-36CE-4053-9C18-9F099CABF249}" proxyStubClsid32="{00020424-0000-0000-C000-000000000046}"/>
+    <comInterfaceExternalProxyStub name="IUnknownValue" iid="{ED79F4B1-7987-4F2D-BA82-3EB0332D9E2E}" tlbid="{A153AF4D-36CE-4053-9C18-9F099CABF249}" proxyStubClsid32="{00020424-0000-0000-C000-000000000046}"/>
+</assembly>
