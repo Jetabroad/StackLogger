@@ -9,8 +9,8 @@
   <files>
     <file src="Jetabroad.StackLogger.Api\bin\Release\Jetabroad.StackLogger.Api.dll" target="lib\net45" />
     <file src="Jetabroad.StackLogger.Api\bin\Release\Jetabroad.StackLogger.Api.pdb" target="lib\net45" />
-    <file src="Jetabroad.StackLogger.Logger\bin\Jetabroad.StackLogger.Logger.dll" target="lib\build" />
-    <file src="Jetabroad.StackLogger.Logger\bin\Jetabroad.StackLogger.Logger.pdb" target="lib\build" />
-    <file src="StackLogger.targets" target="lib\build\Jetabroad.StackLogger.targets" />
+    <file src="Jetabroad.StackLogger.Logger\bin\Jetabroad.StackLogger.Logger.dll" target="build" />
+    <file src="Jetabroad.StackLogger.Logger\bin\Jetabroad.StackLogger.Logger.pdb" target="build" />
+    <file src="StackLogger.targets" target="build\Jetabroad.StackLogger.targets" />
   </files>
 </package>
