@@ -4,7 +4,7 @@
     <id>Jetabroad.StackLogger</id>
     <version>1.0.0</version>
     <authors>Jetabroad Pty Limited</authors>
-    <description>Provide more details when exception occured, such as argument's value.</description>
+    <description>Provide more details when exception occurred, such as argument's value.</description>
   </metadata>
   <files>
     <file src="Jetabroad.StackLogger.Api\bin\Release\Jetabroad.StackLogger.Api.dll" target="lib\net45" />
@@ -13,6 +13,4 @@
     <file src="Jetabroad.StackLogger.Logger\bin\Jetabroad.StackLogger.Logger.pdb" target="lib\build" />
     <file src="StackLogger.targets" target="lib\build\Jetabroad.StackLogger.targets" />
   </files>
-  <contentFiles>
-  </contentFiles>
 </package>
