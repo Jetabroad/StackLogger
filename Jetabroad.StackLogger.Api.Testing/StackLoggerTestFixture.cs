@@ -12,7 +12,7 @@ namespace Jetabroad.StackLogger.Api.Testing
         [TestFixtureSetUp]
         public static void FixtureSetUp()
         {
-            context = new Win32ActivationContext(StackLogger.NativeLibraryFileName, StackLogger.NativeLibraryManifestResourceId);
+            context = new Win32ActivationContext(StackLogger.NativeLibraryFilePath, StackLogger.NativeLibraryManifestResourceId);
             contextActivationCookie = context.Activate();
         }
 
