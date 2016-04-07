@@ -22,6 +22,7 @@
     <WarningLevel>4</WarningLevel>
     <LangVersion>default</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Debug\Jetabroad.StackLogger.Api.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
     <LangVersion>default</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>bin\Release\Jetabroad.StackLogger.Api.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

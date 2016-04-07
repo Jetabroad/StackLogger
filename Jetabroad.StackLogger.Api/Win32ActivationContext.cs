@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace Jetabroad.StackLogger
 {
-    public sealed unsafe class Win32ActivationContext : IDisposable
+    sealed unsafe class Win32ActivationContext : IDisposable
     {
         const uint ACTCTX_FLAG_PROCESSOR_ARCHITECTURE_VALID = 0x00000001;
         const uint ACTCTX_FLAG_LANGID_VALID                 = 0x00000002;
@@ -49,7 +49,7 @@ namespace Jetabroad.StackLogger
                 throw new Win32Exception();
             }
 
-            return new ActivationCookie(cookie, this);
+            return new ActivationCookie(cookie);
         }
 
         public void Dispose()
@@ -70,14 +70,14 @@ namespace Jetabroad.StackLogger
             this.disposed = true;
         }
 
-        [DllImport("kernel32.dll", CallingConvention = CallingConvention.Winapi)]
+        [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool ActivateActCtx(IntPtr hActCtx, UIntPtr *lpCookie);
 
-        [DllImport("kernel32.dll", CallingConvention = CallingConvention.Winapi, EntryPoint = "CreateActCtxW")]
+        [DllImport("kernel32.dll", SetLastError = true, EntryPoint = "CreateActCtxW")]
         static extern IntPtr CreateActCtx(ACTCTX *pActCtx);
 
-        [DllImport("kernel32.dll", CallingConvention = CallingConvention.Winapi)]
+        [DllImport("kernel32.dll")]
         static extern void ReleaseActCtx(IntPtr hActCtx);
 
         [StructLayout(LayoutKind.Sequential)]

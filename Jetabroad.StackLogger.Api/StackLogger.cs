@@ -9,7 +9,7 @@ namespace Jetabroad.StackLogger
     {
         public const string NativeLibraryFileName = "Jetabroad.StackLogger.Logger.dll";
 
-        static ActivationCookie activatedContext;
+        static Win32ActivationContext activationContext;
 
         public static IDataInterface DataInterface
         {
@@ -29,7 +29,10 @@ namespace Jetabroad.StackLogger
 
         public static IGlobalConfiguration CreateConfigurations()
         {
-            return (IGlobalConfiguration)new GlobalConfiguration();
+            using (var activation = activationContext.Activate())
+            {
+                return (IGlobalConfiguration)new GlobalConfiguration();
+            }
         }
 
         /// <summary>
@@ -45,30 +48,14 @@ namespace Jetabroad.StackLogger
                 return;
             }
 
-            if (activatedContext == null)
+            if (activationContext == null)
             {
-                var activationContext = new Win32ActivationContext(NativeLibraryFilePath, NativeLibraryManifestResourceId);
-                try
-                {
-                    activatedContext = activationContext.Activate();
-                }
-                catch
-                {
-                    activationContext.Dispose();
-                    throw;
-                }
+                activationContext = new Win32ActivationContext(NativeLibraryFilePath, NativeLibraryManifestResourceId);
             }
 
-            try
+            using (var activation = activationContext.Activate())
             {
                 DataInterface = (IDataInterface)new DataInterface();
-            }
-            catch
-            {
-                activatedContext.Dispose();
-                activatedContext.Owner.Dispose();
-                activatedContext = null;
-                throw;
             }
         }
 
