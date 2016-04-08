@@ -4,21 +4,14 @@ using System.Runtime.InteropServices;
 
 namespace Jetabroad.StackLogger
 {
-    public sealed unsafe class ActivationCookie : IDisposable
+    sealed unsafe class ActivationCookie : IDisposable
     {
         readonly UIntPtr cookie;
         bool disposed;
 
-        public ActivationCookie(UIntPtr cookie, Win32ActivationContext owner)
+        public ActivationCookie(UIntPtr cookie)
         {
             this.cookie = cookie;
-            Owner = owner; // Prevent Win32ActivationContext from GC while ActivationCookie is still alive.
-        }
-
-        public Win32ActivationContext Owner
-        {
-            get;
-            private set;
         }
 
         ~ActivationCookie()
@@ -47,7 +40,7 @@ namespace Jetabroad.StackLogger
             this.disposed = true;
         }
 
-        [DllImport("kernel32.dll", CallingConvention = CallingConvention.Winapi)]
+        [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool DeactivateActCtx(uint dwFlags, UIntPtr ulCookie);
     }
