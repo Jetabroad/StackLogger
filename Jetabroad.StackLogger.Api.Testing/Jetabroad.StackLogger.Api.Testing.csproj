@@ -46,10 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataInterfaceTest.cs" />
-    <Compile Include="GlobalConfigurationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StackLoggerTestFixture.cs" />
+    <Compile Include="StackLoggerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

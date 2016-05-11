@@ -11,12 +11,10 @@ ArrayValue::~ArrayValue()
 
 VOID ArrayValue::SetValues(const CComSafeArray<LPUNKNOWN>& values)
 {
-	m_values = values;
+	vals = values;
 }
 
 HRESULT ArrayValue::get_Values(SAFEARRAY **items)
 {
-	if (!m_values)
-		return E_NOTIMPL;
-	return m_values.CopyTo(items);
+	return vals.CopyTo(items);
 }

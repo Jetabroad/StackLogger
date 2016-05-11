@@ -3,16 +3,10 @@ using System.Runtime.InteropServices;
 
 namespace Jetabroad.StackLogger
 {
-    [Guid("A86EE8ED-B067-4366-8F23-9DD2DB09F385")]
+    [Guid("3D19AB7B-E022-4418-8358-182C57AFED43")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    public interface IFrameData
+    public interface IObjectDescriptor2 : IObjectDescriptor
     {
-        IObjectDescriptor2[] Parameters
-        {
-            [return: MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_UNKNOWN)]
-            get;
-        }
-
         string Name
         {
             [return: MarshalAs(UnmanagedType.BStr)]

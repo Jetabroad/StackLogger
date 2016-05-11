@@ -7,7 +7,10 @@
 // Windows Header Files:
 
 #define WIN32_LEAN_AND_MEAN // Exclude rarely used stub from windows.h to reduce compilation time.
+
 #include <windows.h>
+
+#include <psapi.h>
 
 // CLR Header Files:
 
@@ -34,7 +37,63 @@ extern CServerAppModule _Module;
 #include <atlpath.h>
 #include <atlfile.h>
 
+// C++ Header Files:
+
+#include <atomic>
+#include <filesystem>
+#include <functional>
+#include <map>
+#include <memory>
+#include <mutex>
+#include <shared_mutex>
+#include <system_error>
+#include <unordered_map>
+#include <utility>
+#include <vector>
+
 // C Header Files:
 
+#include <inttypes.h>
 #include <stdarg.h>
 #include <time.h>
+
+// Helper:
+
+template<class T>
+CComPtr<T> create_com()
+{
+	CComObject<T> *obj;
+	auto hr = CComObject<T>::CreateInstance(&obj);
+	if (FAILED(hr))
+		AtlThrow(hr);
+
+	return obj;
+}
+
+class binary : public std::vector<uint8_t>
+{
+public:
+	binary(std::initializer_list<uint8_t> init) : vector(init) {}
+	binary(binary&& other) : vector(std::forward<binary>(other)) {}
+
+	void append(const binary& other)
+	{
+		append(other.begin(), other.end());
+	}
+
+	void append(std::initializer_list<uint8_t> list)
+	{
+		insert(end(), list);
+	}
+
+	void append(const uint8_t *p, size_t n)
+	{
+		append(p, p + n);
+	}
+
+	template<class InputIt>
+	void append(InputIt first, InputIt last)
+	{
+		insert(end(), first, last);
+	}
+};

@@ -47,21 +47,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActivationCookie.cs" />
-    <Compile Include="DataInterface.cs" />
-    <Compile Include="GlobalConfiguration.cs" />
     <Compile Include="IArrayValue.cs" />
-    <Compile Include="IDumpedData.cs" />
-    <Compile Include="IDataInterface.cs" />
-    <Compile Include="IExceptionDumpingMessage.cs" />
+    <Compile Include="IObjectDescriptor.cs" />
+    <Compile Include="IStackData.cs" />
+    <Compile Include="IOperationLog.cs" />
     <Compile Include="IFrameData.cs" />
-    <Compile Include="IGlobalConfiguration.cs" />
-    <Compile Include="IMethodParameter.cs" />
+    <Compile Include="IObjectDescriptor2.cs" />
     <Compile Include="INullValue.cs" />
     <Compile Include="IRawValue.cs" />
+    <Compile Include="IStackLogger.cs" />
     <Compile Include="IStringValue.cs" />
     <Compile Include="IUnknownValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StackLogger.cs" />
+    <Compile Include="StackLoggerInstaller.cs" />
     <Compile Include="Win32ActivationContext.cs" />
   </ItemGroup>
   <ItemGroup>

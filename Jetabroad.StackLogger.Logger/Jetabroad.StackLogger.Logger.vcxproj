@@ -54,8 +54,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Label="Shared">
-  </ImportGroup>
+  <ImportGroup Label="Shared" />
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -98,6 +97,7 @@
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile>PCH.h</PrecompiledHeaderFile>
       <ExceptionHandling>Async</ExceptionHandling>
+      <DisableSpecificWarnings>4458;4927;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -123,6 +123,7 @@
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile>PCH.h</PrecompiledHeaderFile>
       <ExceptionHandling>Async</ExceptionHandling>
+      <DisableSpecificWarnings>4458;4927;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -150,6 +151,7 @@
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile>PCH.h</PrecompiledHeaderFile>
       <ExceptionHandling>Async</ExceptionHandling>
+      <DisableSpecificWarnings>4458;4927;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -179,6 +181,7 @@
       <SDLCheck>true</SDLCheck>
       <PrecompiledHeaderFile>PCH.h</PrecompiledHeaderFile>
       <ExceptionHandling>Async</ExceptionHandling>
+      <DisableSpecificWarnings>4458;4927;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -199,36 +202,40 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ArrayValue.h" />
-    <ClInclude Include="ClrDataTarget.h" />
-    <ClInclude Include="DumpedData.h" />
-    <ClInclude Include="DataInterface.h" />
-    <ClInclude Include="ExceptionDumpingMessage.h" />
-    <ClInclude Include="ExceptionDumpingMessageCollection.h" />
+    <ClInclude Include="DACTargetProvider.h" />
+    <ClInclude Include="DAC.h" />
+    <ClInclude Include="StackData.h" />
+    <ClInclude Include="ExceptionDumper.h" />
+    <ClInclude Include="OperationLog.h" />
     <ClInclude Include="FrameData.h" />
-    <ClInclude Include="GlobalConfiguration.h" />
-    <ClInclude Include="MethodParameter.h" />
+    <ClInclude Include="GlobalEvents.h" />
+    <ClInclude Include="Logger.h" />
+    <ClInclude Include="ObjectDescriptor2.h" />
+    <ClInclude Include="ModuleHandle.h" />
     <ClInclude Include="NullValue.h" />
     <ClInclude Include="PCH.h" />
     <ClInclude Include="PlatformTarget.h" />
     <ClInclude Include="RawValue.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="StackLogger.h" />
     <ClInclude Include="StringValue.h" />
-    <ClInclude Include="TLS.h" />
-    <ClInclude Include="TlsValue.h" />
+    <ClInclude Include="ThreadLocalStorage.h" />
     <ClInclude Include="UnknownValue.h" />
-    <ClInclude Include="VectoredExceptionHandler.h" />
+    <ClInclude Include="CallbackThunk.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ArrayValue.cpp" />
-    <ClCompile Include="ClrDataTarget.cpp" />
-    <ClCompile Include="DumpedData.cpp" />
-    <ClCompile Include="DataInterface.cpp" />
-    <ClCompile Include="ExceptionDumpingMessage.cpp" />
-    <ClCompile Include="ExceptionDumpingMessageCollection.cpp" />
+    <ClCompile Include="DACTargetProvider.cpp" />
+    <ClCompile Include="DAC.cpp" />
+    <ClCompile Include="StackData.cpp" />
+    <ClCompile Include="ExceptionDumper.cpp" />
+    <ClCompile Include="OperationLog.cpp" />
     <ClCompile Include="FrameData.cpp" />
-    <ClCompile Include="GlobalConfiguration.cpp" />
+    <ClCompile Include="GlobalEvents.cpp" />
+    <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="MethodParameter.cpp" />
+    <ClCompile Include="ObjectDescriptor2.cpp" />
+    <ClCompile Include="ModuleHandle.cpp" />
     <ClCompile Include="NullValue.cpp" />
     <ClCompile Include="PCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -237,11 +244,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="RawValue.cpp" />
+    <ClCompile Include="StackLogger.cpp" />
     <ClCompile Include="StringValue.cpp" />
-    <ClCompile Include="TLS.cpp" />
-    <ClCompile Include="TlsValue.cpp" />
+    <ClCompile Include="ThreadLocalStorage.cpp" />
     <ClCompile Include="UnknownValue.cpp" />
-    <ClCompile Include="VectoredExceptionHandler.cpp" />
+    <ClCompile Include="CallbackThunk.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Jetabroad.StackLogger.Logger.rc" />
