@@ -3,6 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace Jetabroad.StackLogger
 {
+    /// <summary>
+    /// Represents a dumped string.
+    /// </summary>
     [Guid("DB4DE73F-5DF3-4A28-B900-0C9AC7A47EBB")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IStringValue

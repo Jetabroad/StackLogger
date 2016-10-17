@@ -3,6 +3,9 @@ using System.Runtime.InteropServices;
 
 namespace Jetabroad.StackLogger
 {
+    /// <summary>
+    /// Interface to controlling StackLogger.
+    /// </summary>
     [Guid("B0B7FDE7-A41E-4264-A9B9-C073C14E4680")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IStackLogger

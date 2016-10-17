@@ -12,10 +12,8 @@ namespace Jetabroad.StackLogger.Api.Testing
         [SetUp]
         public void SetUp()
         {
-            using (var installer = new StackLoggerInstaller())
-            {
-                stackLogger = installer.Install();
-            }
+            var installer = new StackLoggerInstaller();
+            stackLogger = installer.Install();
         }
 
         [TearDown]

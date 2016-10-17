@@ -5,23 +5,12 @@ using System.Runtime.InteropServices;
 
 namespace Jetabroad.StackLogger
 {
-    public sealed class StackLoggerInstaller : IDisposable
+    public sealed class StackLoggerInstaller
     {
         const string LoggerFileName = "Jetabroad.StackLogger.Logger.dll";
 
-        readonly Win32ActivationContext activationContext;
-
         public StackLoggerInstaller()
         {
-            var assemblyDirectory = Path.GetDirectoryName(typeof(StackLoggerInstaller).Assembly.Location);
-            var loggerPath = Path.Combine(assemblyDirectory, LoggerFileName);
-
-            activationContext = new Win32ActivationContext(loggerPath, resourceId: 2);
-        }
-
-        public void Dispose()
-        {
-            activationContext.Dispose();
         }
 
         /// <summary>
@@ -32,6 +21,7 @@ namespace Jetabroad.StackLogger
         /// </returns>
         public IStackLogger Install()
         {
+            using (var activationContext = new Win32ActivationContext(GetLoggerPath(), resourceId: 2))
             using (var activation = activationContext.Activate())
             {
                 return (IStackLogger)new StackLogger();
@@ -44,44 +34,46 @@ namespace Jetabroad.StackLogger
         /// <param name="applicationRoot">
         /// Path of current web application.
         /// </param>
-        /// <param name="applicationAssembly">
-        /// Assembly of the current web application.
-        /// </param>
         /// <returns>
         /// <see cref="IStackLogger"/> instance for controlling and retrieve exception information.
         /// </returns>
         /// <exception cref="ArgumentNullException">
-        /// <paramref name="applicationRoot"/> or <paramref name="applicationAssembly"/> is <c>null</c>.
+        /// <paramref name="applicationRoot"/> is <c>null</c>.
         /// </exception>
-        public IStackLogger InstallForWeb(string applicationRoot, Assembly applicationAssembly)
+        public IStackLogger InstallForWeb(string applicationRoot)
         {
             if (applicationRoot == null)
             {
                 throw new ArgumentNullException(nameof(applicationRoot));
             }
 
-            if (applicationAssembly == null)
-            {
-                throw new ArgumentNullException(nameof(applicationAssembly));
-            }
-
             // Unload old logger first.
+            CoFreeUnusedLibrariesEx(0, 0);
             CoFreeUnusedLibraries();
 
-            // Copy logger to the same path as web application assembly.
-            var shadowBin = Path.GetDirectoryName(applicationAssembly.Location);
+            // Copy logger to the same path as API assembly.
+            var destinationDirectory = Path.GetDirectoryName(typeof(StackLoggerInstaller).Assembly.Location);
 
-            if (!shadowBin.StartsWith(applicationRoot, StringComparison.OrdinalIgnoreCase))
+            if (!destinationDirectory.StartsWith(applicationRoot, StringComparison.OrdinalIgnoreCase))
             {
                 var source = Path.Combine(applicationRoot, "bin", LoggerFileName);
-                var destination = Path.Combine(shadowBin, LoggerFileName);
+                var destination = Path.Combine(destinationDirectory, LoggerFileName);
                 File.Copy(source, destination, true);
             }
 
             return Install();
         }
 
+        static string GetLoggerPath()
+        {
+            var assemblyDirectory = Path.GetDirectoryName(typeof(StackLoggerInstaller).Assembly.Location);
+            return Path.Combine(assemblyDirectory, LoggerFileName);
+        }
+
         [DllImport("ole32.dll")]
         static extern void CoFreeUnusedLibraries();
+
+        [DllImport("combase.dll")]
+        static extern void CoFreeUnusedLibrariesEx(uint dwUnloadDelay, uint dwReserved);
     }
 }
