@@ -27,6 +27,9 @@ namespace Jetabroad.StackLogger
         /// <summary>
         /// Install StackLogger on the current process. For ASP.NET application, use <see cref="InstallForWeb(string, Assembly)"/> instead.
         /// </summary>
+        /// <returns>
+        /// <see cref="IStackLogger"/> instance for controlling and retrieve exception information.
+        /// </returns>
         public IStackLogger Install()
         {
             using (var activation = activationContext.Activate())
@@ -44,10 +47,13 @@ namespace Jetabroad.StackLogger
         /// <param name="applicationAssembly">
         /// Assembly of the current web application.
         /// </param>
+        /// <returns>
+        /// <see cref="IStackLogger"/> instance for controlling and retrieve exception information.
+        /// </returns>
         /// <exception cref="ArgumentNullException">
         /// <paramref name="applicationRoot"/> or <paramref name="applicationAssembly"/> is <c>null</c>.
         /// </exception>
-        public void InstallForWeb(string applicationRoot, Assembly applicationAssembly)
+        public IStackLogger InstallForWeb(string applicationRoot, Assembly applicationAssembly)
         {
             if (applicationRoot == null)
             {
@@ -72,7 +78,7 @@ namespace Jetabroad.StackLogger
                 File.Copy(source, destination, true);
             }
 
-            Install();
+            return Install();
         }
 
         [DllImport("ole32.dll")]
