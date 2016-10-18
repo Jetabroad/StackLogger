@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Jetabroad.StackLogger.Logger", "Jetabroad.StackLogger.Logger\Jetabroad.StackLogger.Logger.vcxproj", "{9D556B37-6A24-44C6-9AF1-C47D203857EB}"
 EndProject
@@ -11,6 +11,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jetabroad.StackLogger.Api",
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Jetabroad.StackLogger.Api.Testing", "Jetabroad.StackLogger.Api.Testing\Jetabroad.StackLogger.Api.Testing.csproj", "{80DFA55C-C04F-4839-815C-E05AD5090E5F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6D96C5E8-14C8-40FA-844E-5AFA36A5DA4A}"
+	ProjectSection(SolutionItems) = preProject
+		StackLogger.nuspec = StackLogger.nuspec
+		StackLogger.targets = StackLogger.targets
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
