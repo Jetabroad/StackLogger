@@ -25,12 +25,12 @@ struct argument_description
 class callback_thunk final
 {
 public:
-	callback_thunk() noexcept;
-	~callback_thunk() noexcept;
+	callback_thunk();
+	~callback_thunk();
 
 	template<typename T>
 	void * create(void *obj, T callback, const argument_description args[] = nullptr, std::uint8_t narg = 0, calling_convention cc = calling_convention::stdcall);
-	void * get_thunk() const noexcept;
+	void * get_thunk() const;
 private:
 	static void * create_stdcall_thunk(void *obj, void *callback, std::uint8_t nargs, const argument_description args[]);
 
@@ -53,6 +53,8 @@ inline void * callback_thunk::create(void *obj, T callback, const argument_descr
 	default:
 		throw std::invalid_argument("Invalid calling convention.");
 	}
+
+	ATLTRACE2(L"Created callback thunk at 0x%IX.\n", thunk);
 
 	return thunk;
 }

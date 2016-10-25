@@ -36,6 +36,7 @@ template<class T>
 inline void thread_storage<T>::clear_value()
 {
 	std::lock_guard<std::shared_mutex> lock(mtx);
+
 	vals.erase(GetCurrentThreadId());
 }
 
@@ -43,12 +44,18 @@ template<class T>
 inline std::shared_ptr<T> thread_storage<T>::get_value()
 {
 	std::shared_lock<std::shared_mutex> lock(mtx);
-	return vals[GetCurrentThreadId()];
+
+	auto it = vals.find(GetCurrentThreadId());
+	if (it == vals.end())
+		return nullptr;
+
+	return it->second;
 }
 
 template<class T>
 inline void thread_storage<T>::set_value(const std::shared_ptr<T>& v)
 {
 	std::lock_guard<std::shared_mutex> lock(mtx);
-	vals[GetCurrentThreadId()] = v;
+
+	vals.insert_or_assign(GetCurrentThreadId(), v);
 }

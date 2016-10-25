@@ -3,7 +3,7 @@
 class ATL_NO_VTABLE CLogger
 {
 public:
-	virtual VOID WriteLog(LPCWSTR pszFormat, ...) noexcept = 0;
+	virtual VOID WriteLog(LPCWSTR pszFormat, ...) = 0;
 protected:
 	CLogger();
 	virtual ~CLogger();

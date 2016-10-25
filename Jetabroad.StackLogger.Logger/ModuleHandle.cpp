@@ -1,17 +1,17 @@
 #include "PCH.h"
 #include "ModuleHandle.h"
 
-module_handle::module_handle() noexcept :
+module_handle::module_handle() :
 	h(nullptr)
 {
 }
 
-module_handle::module_handle(HMODULE h) noexcept :
+module_handle::module_handle(HMODULE h) :
 	h(h)
 {
 }
 
-module_handle::module_handle(module_handle&& other) noexcept :
+module_handle::module_handle(module_handle&& other) :
 	h(other.h)
 {
 	other.h = nullptr;

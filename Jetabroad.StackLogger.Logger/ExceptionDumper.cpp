@@ -40,7 +40,7 @@ CComPtr<IStackData> exception_dumper::run()
 	logger.WriteLog(L"Creating IXCLRDataStackWalk.");
 
 	CComPtr<IXCLRDataStackWalk> walker;
-	hr = task->CreateStackWalk(CLRDATA_SIMPFRAME_MANAGED_METHOD | CLRDATA_SIMPFRAME_RUNTIME_MANAGED_CODE, &walker);
+	hr = task->CreateStackWalk(CLRDATA_SIMPFRAME_MANAGED_METHOD, &walker);
 	if (FAILED(hr))
 		AtlThrow(hr);
 

@@ -7,7 +7,10 @@
 #define CLR_DIRECTORY L"Microsoft.NET\\Framework\\v4.0.30319"
 #endif
 
+#define DAC_LIBRARY L"mscordacwks.dll"
+
 // Data Access Component to access internal CLR and use clrdata.idl and xclrdata.idl from PCH.h
+
 CComPtr<IXCLRDataProcess> create_dac(HMODULE mod, ICLRDataTarget *prov)
 {
 	auto func = reinterpret_cast<PFN_CLRDataCreateInstance>(GetProcAddress(mod, "CLRDataCreateInstance"));
@@ -37,7 +40,7 @@ module_handle load_dac()
 
 	// Construct full path of "C:\Windows\Microsoft.NET\Framework[64]\v4.0.30319\mscordacwks.dll".
 	path.append(CLR_DIRECTORY);
-	path.append(L"mscordacwks.dll");
+	path.append(DAC_LIBRARY);
 
 	// Load mscordacwks.dll.
 	auto mod = LoadLibrary(path.c_str());

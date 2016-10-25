@@ -73,13 +73,19 @@ HRESULT DACTargetProvider::GetImageBase(LPCWSTR imagePath, CLRDATA_ADDRESS *base
 
 HRESULT DACTargetProvider::ReadVirtual(CLRDATA_ADDRESS address, BYTE *buffer, ULONG32 bytesRequested, ULONG32 *bytesRead)
 {
-	logger->WriteLog(L"DAC is asking for %u bytes at 0x%IX.", bytesRequested, address);
-
+	// Don't logging this method since it will be a lot of entries.
 	if (!buffer || !bytesRead)
 		return E_POINTER;
-	
-	CopyMemory(buffer, reinterpret_cast<PVOID>(address), bytesRequested);
-	*bytesRead = bytesRequested;
+
+	__try
+	{
+		memcpy(buffer, reinterpret_cast<const void *>(address), bytesRequested);
+		*bytesRead = bytesRequested;
+	}
+	__except (GetExceptionCode() == STATUS_ACCESS_VIOLATION ? EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH)
+	{
+		return E_ACCESSDENIED;
+	}
 
 	return S_OK;
 }
@@ -90,9 +96,17 @@ HRESULT DACTargetProvider::WriteVirtual(CLRDATA_ADDRESS address, BYTE *buffer, U
 
 	if (!buffer || !bytesWritten)
 		return E_POINTER;
-	
-	CopyMemory(reinterpret_cast<PVOID>(address), buffer, bytesRequested);
-	*bytesWritten = bytesRequested;
+
+	__try
+	{
+		// We need to write bytesWritten before do the actual write since after we do the actual write, writing to bytesWritten is not allow to fail.
+		*bytesWritten = bytesRequested;
+		memcpy(reinterpret_cast<void *>(address), buffer, bytesRequested);
+	}
+	__except (GetExceptionCode() == STATUS_ACCESS_VIOLATION ? EXCEPTION_EXECUTE_HANDLER : EXCEPTION_CONTINUE_SEARCH)
+	{
+		return E_ACCESSDENIED;
+	}
 
 	return S_OK;
 }

@@ -46,16 +46,14 @@ protected:
 	StackLogger();
 	~StackLogger() override;
 private: // Helpers.
+	VOID HandleProcessException(PEXCEPTION_POINTERS pExceptionInfo);
 	LONG VectoredExceptionHandler(PEXCEPTION_POINTERS pExceptionInfo);
-	VOID WriteLog(LPCWSTR pszFormat, ...) noexcept override;
+	VOID WriteLog(LPCWSTR pszFormat, ...) override;
 private: // Private Types.
 	struct thread_data
 	{
 		CComPtr<IStackData> stack_data;
 		CInterfaceArray<IOperationLog> logs;
-		bool in_veh;
-
-		thread_data() : in_veh(false) {}
 	};
 private: // Member objects. The order of it is significant. It must be construct and destruct in the correct order.
 	thread_storage<thread_data> tls;
@@ -66,4 +64,5 @@ private: // Member objects. The order of it is significant. It must be construct
 	module_handle dmod;
 	callback_thunk vthunk;
 	PVOID veh;
+	volatile long in_veh; // Number of threads being inside VEH. -1 mean we are being destroying.
 };

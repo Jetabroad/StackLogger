@@ -201,7 +201,7 @@ static void * create_x64_thunk(void *obj, void *callback, std::uint8_t nargs, co
 #error Target platform is not supported.
 #endif
 
-callback_thunk::callback_thunk() noexcept :
+callback_thunk::callback_thunk() :
 	thunk(nullptr)
 {
 }
@@ -212,7 +212,7 @@ callback_thunk::~callback_thunk()
 		VirtualFree(thunk, 0, MEM_RELEASE);
 }
 
-void * callback_thunk::get_thunk() const noexcept
+void * callback_thunk::get_thunk() const
 {
 	return thunk;
 }

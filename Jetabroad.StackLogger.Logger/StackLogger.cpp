@@ -12,16 +12,25 @@
 StackLogger::StackLogger() :
 	enabled(true),
 	logging(false),
-	veh(nullptr)
+	dmod(NULL),
+	veh(nullptr),
+	in_veh(0)
 {
 }
 
 StackLogger::~StackLogger()
 {
-	// There is no documents to tell whether RemoveVectoredExceptionHandler() is synchronous or asynchronous on MSDN.
-	// So we assume it is synchronous. That mean when it return no one will ever call the installed handler again.
+	// Uninstall VEH handler first.
 	if (veh && !RemoveVectoredExceptionHandler(veh))
 		AtlThrowLastWin32();
+
+	// Then wait for current VEH handling to finish.
+	while (InterlockedCompareExchange(&in_veh, -1, 0) != 0)
+		Sleep(0);
+
+	// Yield the execution to another thread to delay object destroying since it
+	// possible to have another exception already fired before we do RemoveVectoredExceptionHandler().
+	Sleep(0);
 }
 
 HRESULT StackLogger::FinalConstruct()
@@ -242,71 +251,114 @@ HRESULT StackLogger::ClearOperationLogs()
 	return S_OK;
 }
 
-LONG StackLogger::VectoredExceptionHandler(PEXCEPTION_POINTERS pExceptionInfo)
+VOID StackLogger::HandleProcessException(PEXCEPTION_POINTERS pExceptionInfo)
 {
 	// Prevent recursive running. This make it safe to be able to throw exceptions after this line.
 	// If we don't check for this, when exception occur it will call this function again and again until stack is overflow.
-	// FIXME: Find a better way to ensure it not throw exception before we are in a safe situation.
-	auto tdata = tls.get_value();
-	if (!tdata)
-	{
-		tdata = std::make_shared<thread_data>();
-		tls.set_value(tdata);
-	}
+	thread_local static bool reentrant;
 
-	if (tdata->in_veh)
-		return EXCEPTION_CONTINUE_SEARCH;
+	if (reentrant)
+		return;
 
-	tdata->in_veh = true;
+	reentrant = true;
 
-	// Start Dumping.
 	try
 	{
-		if (enabled)
+		if (!enabled)
+			goto Exit;
+
+		// Prepare storage.
+		auto tdata = tls.get_value();
+		if (!tdata)
 		{
-			// Clean old data before append a new one.
-			ClearData();
-			ClearOperationLogs();
+			tdata = std::make_shared<thread_data>();
+			tls.set_value(tdata);
+		}
 
-			// Create DAC.
-			auto dtarget = create_com<DACTargetProvider>();
+		// Prepare config.
+		exception_dumper::config dconf;
 
-			dtarget->SetLogger(this);
-			dtarget->SetException(pExceptionInfo);
+		{
+			// Lock inside this block only to reduce locking time.
+			std::shared_lock<std::shared_mutex> lock(dconf_mtx);
+			dconf = this->dconf;
+		}
 
-			auto dac = create_dac(dmod, dtarget.p);
+		// Clean old data before append a new one.
+		ClearData();
+		ClearOperationLogs();
 
+		// Create DAC.
+		auto dtarget = create_com<DACTargetProvider>();
+
+		dtarget->SetLogger(this);
+		dtarget->SetException(pExceptionInfo);
+
+		auto dac = create_dac(dmod, dtarget.p);
+
+		try
+		{
 			// Dump.
-			exception_dumper::config dconf;
-
-			{
-				std::shared_lock<std::shared_mutex> lock(dconf_mtx);
-				dconf = this->dconf;
-			}
-
 			exception_dumper dumper(dconf, dac, GetCurrentThreadId(), *this);
 			tdata->stack_data = dumper.run();
 		}
+		catch (...)
+		{
+			dac->Flush();
+			throw;
+		}
+
+		dac->Flush();
 	}
 	catch (CAtlException& e)
 	{
-		WriteLog(L"Failed to dump exception details: 0x%X.", e);
+		ATLTRY(WriteLog(L"Failed to dump exception details: 0x%X.", e));
 	}
 	catch (std::exception& e)
 	{
-		WriteLog(L"Failed to dump exception details: 0x%hs.", e.what());
+		ATLTRY(WriteLog(L"Failed to dump exception details: 0x%hs.", e.what()));
 	}
 	catch (...)
 	{
-		WriteLog(L"Failed to dump exception details: Unknown Error.");
+		ATLTRY(WriteLog(L"Failed to dump exception details: Unknown Error."));
 	}
 
-	tdata->in_veh = false;
+	Exit:
+	reentrant = false;
+}
+
+LONG StackLogger::VectoredExceptionHandler(PEXCEPTION_POINTERS pExceptionInfo)
+{
+	// Filter exceptions that we want to process.
+	// It not safe to put any breakpoint before "if" statement in the below.
+	// 0xE0434352 is exception code for CLR.
+	auto excode = pExceptionInfo->ExceptionRecord->ExceptionCode;
+	if (excode == STATUS_BREAKPOINT || excode == STATUS_SINGLE_STEP || excode != 0xE0434352)
+		return EXCEPTION_CONTINUE_SEARCH;
+
+	// Increase number of threads being inside VEH.
+	for (;;)
+	{
+		auto cveh = in_veh;
+		if (cveh == -1)
+			return EXCEPTION_CONTINUE_SEARCH;
+
+		if (InterlockedCompareExchange(&in_veh, cveh + 1, cveh) == cveh)
+			break;
+	}
+
+	// Dump.
+	auto err = GetLastError(); // Preserve last error code.
+	HandleProcessException(pExceptionInfo);
+	SetLastError(err);
+
+	// Decrease number of threads being inside VEH.
+	InterlockedDecrement(&in_veh);
 
 	return EXCEPTION_CONTINUE_SEARCH;
 }
 
-VOID StackLogger::WriteLog(LPCWSTR pszFormat, ...) noexcept
+VOID StackLogger::WriteLog(LPCWSTR pszFormat, ...)
 {
 	try
 	{

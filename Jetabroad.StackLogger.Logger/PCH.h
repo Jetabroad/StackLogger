@@ -4,9 +4,18 @@
 
 #include "PlatformTarget.h"
 
-// Windows Header Files:
+// Compilation Controlling Macros:
 
 #define WIN32_LEAN_AND_MEAN // Exclude rarely used stub from windows.h to reduce compilation time.
+
+#define _ATL_FREE_THREADED // Our COM objects need to be thread-safe since default threading model for managed world is MTA (Multi-threaded Apartment).
+#define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS // Prevent accidentally pass "int" and other type to argument with CString type.
+#define _WTL_NO_CSTRING // We will use ATL CString instead.
+#define _WTL_NO_WTYPES // We will use ATL implementation instead.
+
+#define _CRTDBG_MAP_ALLOC
+
+// Windows Header Files:
 
 #include <windows.h>
 
@@ -17,11 +26,6 @@
 #include "xclrdata.h"
 
 // ATL & WTL Header Files:
-
-#define _ATL_FREE_THREADED // Our COM objects need to be thread-safe since default threading model for managed world is MTA (Multi-threaded Apartment).
-#define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS // Prevent accidentally pass "int" and other type to argument with CString type.
-#define _WTL_NO_CSTRING // We will use ATL CString instead.
-#define _WTL_NO_WTYPES // We will use ATL implementation instead.
 
 #include <atlbase.h>
 #include <atlstr.h>
@@ -53,8 +57,10 @@ extern CServerAppModule _Module;
 
 // C Header Files:
 
+#include <crtdbg.h>
 #include <inttypes.h>
 #include <stdarg.h>
+#include <stdlib.h>
 #include <time.h>
 
 // Helper template:

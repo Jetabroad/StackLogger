@@ -3,9 +3,9 @@
 class module_handle final
 {
 public:
-	module_handle() noexcept;
-	explicit module_handle(HMODULE h) noexcept;
-	module_handle(module_handle&& other) noexcept;
+	module_handle();
+	explicit module_handle(HMODULE h);
+	module_handle(module_handle&& other);
 	module_handle(const module_handle&) = delete;
 	~module_handle();
 
