@@ -39,15 +39,15 @@ namespace Jetabroad.StackLogger.Api.Testing
         [Test]
         public void OperationLoggingEnabled_DefaultValue_IsFalse()
         {
-            Assert.That(stackLogger.OperationLoggingEnabled, Is.False);
+            Assert.That(stackLogger.InternalLoggingEnabled, Is.False);
         }
 
         [TestCase(true)]
         [TestCase(false)]
         public void OperationLoggingEnabled_ChangeValue_ValueMustBeChanged(bool value)
         {
-            stackLogger.OperationLoggingEnabled = value;
-            Assert.That(stackLogger.OperationLoggingEnabled, Is.EqualTo(value));
+            stackLogger.InternalLoggingEnabled = value;
+            Assert.That(stackLogger.InternalLoggingEnabled, Is.EqualTo(value));
         }
 
         [Test]
@@ -94,7 +94,7 @@ namespace Jetabroad.StackLogger.Api.Testing
         {
             // Set Configurations.
             stackLogger.Enabled = true;
-            stackLogger.OperationLoggingEnabled = false;
+            stackLogger.InternalLoggingEnabled = false;
 
             // Run Test.
             try
@@ -229,7 +229,7 @@ namespace Jetabroad.StackLogger.Api.Testing
         {
             // Set Configurations.
             stackLogger.Enabled = true;
-            stackLogger.OperationLoggingEnabled = true;
+            stackLogger.InternalLoggingEnabled = true;
 
             // Run Test.
             var argument = "Test Message";

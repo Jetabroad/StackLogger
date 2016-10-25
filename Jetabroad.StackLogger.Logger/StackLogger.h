@@ -6,7 +6,7 @@
 #include "ModuleHandle.h"
 #include "ThreadLocalStorage.h"
 
-#include "Jetabroad.StackLogger.Logger_h.h"
+#include "Jetabroad.StackLogger.Logger_h.h"//from idl
 
 // Interface to unmanaged world for managed world.
 class ATL_NO_VTABLE StackLogger :
@@ -29,10 +29,11 @@ public:
 
 	HRESULT FinalConstruct();
 public:
+	//IDL will automatic generate get/put prefix
 	HRESULT STDMETHODCALLTYPE get_Enabled(BOOL *enabled) override;
 	HRESULT STDMETHODCALLTYPE put_Enabled(BOOL enabled) override;
-	HRESULT STDMETHODCALLTYPE get_OperationLoggingEnabled(BOOL *enabled) override;
-	HRESULT STDMETHODCALLTYPE put_OperationLoggingEnabled(BOOL enabled) override;
+	HRESULT STDMETHODCALLTYPE get_InternalLoggingEnabled(BOOL *enabled) override;
+	HRESULT STDMETHODCALLTYPE put_InternalLoggingEnabled(BOOL enabled) override;
 	HRESULT STDMETHODCALLTYPE get_MaximumStackDepth(LONG *depth) override;
 	HRESULT STDMETHODCALLTYPE put_MaximumStackDepth(LONG depth) override;
 	HRESULT STDMETHODCALLTYPE get_HasData(BOOL *result) override;

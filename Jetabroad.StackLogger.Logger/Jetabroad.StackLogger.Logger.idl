@@ -1,4 +1,4 @@
-// Define the COM interfaces to be access by managed world.
+//main IDL file, to define the COM interfaces to be accessed by managed world.
 import "oaidl.idl";
 import "ocidl.idl";
 
@@ -130,8 +130,8 @@ library StackLogger
 		[propget] HRESULT Enabled([out, retval] BOOL *enabled);
 		[propput] HRESULT Enabled([in] BOOL enabled);
 
-		[propget] HRESULT OperationLoggingEnabled([out, retval] BOOL *enabled);
-		[propput] HRESULT OperationLoggingEnabled([in] BOOL enabled);
+		[propget] HRESULT InternalLoggingEnabled([out, retval] BOOL *enabled);
+		[propput] HRESULT InternalLoggingEnabled([in] BOOL enabled);
 
 		[propget] HRESULT MaximumStackDepth([out, retval] LONG *depth);
 		[propput] HRESULT MaximumStackDepth([in] LONG depth);

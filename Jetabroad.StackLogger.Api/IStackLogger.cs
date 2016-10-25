@@ -18,7 +18,7 @@ namespace Jetabroad.StackLogger
             set;
         }
 
-        bool OperationLoggingEnabled
+        bool InternalLoggingEnabled
         {
             [return: MarshalAs(UnmanagedType.Bool)]
             get;

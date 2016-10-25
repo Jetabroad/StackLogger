@@ -75,7 +75,7 @@ HRESULT StackLogger::put_Enabled(BOOL enabled)
 	return S_OK;
 }
 
-HRESULT StackLogger::get_OperationLoggingEnabled(BOOL *enabled)
+HRESULT StackLogger::get_InternalLoggingEnabled(BOOL *enabled)
 {
 	if (!enabled)
 		return E_POINTER;
@@ -85,7 +85,7 @@ HRESULT StackLogger::get_OperationLoggingEnabled(BOOL *enabled)
 	return S_OK;
 }
 
-HRESULT StackLogger::put_OperationLoggingEnabled(BOOL enabled)
+HRESULT StackLogger::put_InternalLoggingEnabled(BOOL enabled)
 {
 	logging = enabled ? true : false;
 	return S_OK;
