@@ -18,6 +18,9 @@ namespace Jetabroad.StackLogger
             set;
         }
 
+        /// <summary>
+        /// turn on/off internal logging of Stack Logging when we have problem with stack logger itself
+        /// </summary>
         bool InternalLoggingEnabled
         {
             [return: MarshalAs(UnmanagedType.Bool)]

@@ -7,6 +7,7 @@
 #define CLR_DIRECTORY L"Microsoft.NET\\Framework\\v4.0.30319"
 #endif
 
+// Data Access Component to access internal CLR and use clrdata.idl and xclrdata.idl from PCH.h
 CComPtr<IXCLRDataProcess> create_dac(HMODULE mod, ICLRDataTarget *prov)
 {
 	auto func = reinterpret_cast<PFN_CLRDataCreateInstance>(GetProcAddress(mod, "CLRDataCreateInstance"));

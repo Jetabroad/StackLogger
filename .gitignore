@@ -4,4 +4,7 @@
 /StackLogger.sdf
 /.vs/
 /ipch/
+# not include all package to repository
 /packages/
+bin/
+obj/

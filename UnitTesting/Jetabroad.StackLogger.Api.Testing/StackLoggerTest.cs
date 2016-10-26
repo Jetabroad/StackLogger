@@ -165,6 +165,8 @@ namespace Jetabroad.StackLogger.Api.Testing
             {
                 Assert.That(stackLogger.HasData, Is.True);
                 Assert.That(stackLogger.Data.Frames, Has.Length.EqualTo(1));
+
+                //change name to method name
                 Assert.That(stackLogger.Data.Frames[0].Name, Is.EqualTo("Jetabroad.StackLogger.Api.Testing.StackLoggerTest.Data_ThrowFromInstanceMethod_FirstFrameIsInstanceMethod()"));
                 Assert.That(stackLogger.Data.Frames[0].Parameters, Has.Length.EqualTo(1));
                 Assert.That(stackLogger.Data.Frames[0].Parameters[0].Type, Is.EqualTo("Jetabroad.StackLogger.Api.Testing.StackLoggerTest"));
@@ -216,6 +218,7 @@ namespace Jetabroad.StackLogger.Api.Testing
                 Assert.That(stackLogger.Data.Frames[0].Parameters.Length, Is.EqualTo(1));
                 Assert.That(stackLogger.Data.Frames[0].Parameters[0].Type, Is.EqualTo("System.String"));
 
+                //ThrowException is static method, therefore we can get it from parameter index 0
                 var value = stackLogger.Data.Frames[0].Parameters[0].Value as IStringValue;
                 Assert.That(value, Is.Not.Null);
                 Assert.That(value.Value, Is.EqualTo(argument));

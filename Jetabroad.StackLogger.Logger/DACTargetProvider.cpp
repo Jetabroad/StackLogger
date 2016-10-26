@@ -1,6 +1,6 @@
 #include "PCH.h"
 #include "DACTargetProvider.h"
-
+//implementation of ICLRDataTarget (we need to implement to access DAC) 
 DACTargetProvider::DACTargetProvider() :
 	logger(nullptr),
 	ex(nullptr)

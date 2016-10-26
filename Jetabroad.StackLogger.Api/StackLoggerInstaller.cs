@@ -9,10 +9,6 @@ namespace Jetabroad.StackLogger
     {
         const string LoggerFileName = "Jetabroad.StackLogger.Logger.dll";
 
-        public StackLoggerInstaller()
-        {
-        }
-
         /// <summary>
         /// Install StackLogger on the current process. For ASP.NET application, use <see cref="InstallForWeb(string, Assembly)"/> instead.
         /// </summary>
@@ -22,7 +18,7 @@ namespace Jetabroad.StackLogger
         public IStackLogger Install()
         {
             using (var activationContext = new Win32ActivationContext(GetLoggerPath(), resourceId: 2))
-            using (var activation = activationContext.Activate())
+            using (activationContext.Activate())
             {
                 return (IStackLogger)new StackLogger();
             }
@@ -30,6 +26,7 @@ namespace Jetabroad.StackLogger
 
         /// <summary>
         /// Install StackLogger on current ASP.NET process. For other application type, use <see cref="Install"/> instead.
+        /// Shadow copy DLL 
         /// </summary>
         /// <param name="applicationRoot">
         /// Path of current web application.

@@ -9,7 +9,7 @@
 #include "StackData.h"
 #include "StringValue.h"
 #include "UnknownValue.h"
-
+//dump exception from CLR
 exception_dumper::exception_dumper(const config& conf, const CComPtr<IXCLRDataProcess>& dac, DWORD tid, CLogger& logger) :
 	conf(conf),
 	dac(dac),
@@ -25,6 +25,7 @@ CComPtr<IStackData> exception_dumper::run()
 	// Create StackData.
 	logger.WriteLog(L"Begin dumping exception details.");
 
+	//stackData that we store exception
 	auto sdata = create_com<StackData>();
 
 	// Get CLR Task for the thread.
@@ -50,7 +51,7 @@ CComPtr<IStackData> exception_dumper::run()
 	frames.SetCount(0, 32); // This will change growing size.
 
 	unsigned i = 0;
-
+	//read nested exception
 	do
 	{
 		if (i >= conf.max_frames)

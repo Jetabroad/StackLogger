@@ -71,7 +71,7 @@ namespace Jetabroad.StackLogger
 
             this.disposed = true;
         }
-
+       //Import Win32 DLL and use function 
         [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         static extern bool ActivateActCtx(IntPtr hActCtx, UIntPtr* lpCookie);

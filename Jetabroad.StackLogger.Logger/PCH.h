@@ -57,10 +57,9 @@ extern CServerAppModule _Module;
 #include <stdarg.h>
 #include <time.h>
 
-// Helper:
-
+// Helper template:
 template<class T>
-CComPtr<T> create_com()
+CComPtr<T> create_com() //helper to create COM
 {
 	CComObject<T> *obj;
 	auto hr = CComObject<T>::CreateInstance(&obj);
