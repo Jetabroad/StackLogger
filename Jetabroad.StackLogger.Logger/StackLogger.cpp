@@ -12,6 +12,7 @@
 StackLogger::StackLogger() :
 	enabled(true),
 	logging(false),
+	max_data_entries(10),
 	dmod(NULL),
 	veh(nullptr),
 	in_veh(0)
@@ -100,6 +101,26 @@ HRESULT StackLogger::put_InternalLoggingEnabled(BOOL enabled)
 	return S_OK;
 }
 
+HRESULT StackLogger::get_MaximumDataEntries(LONG *number)
+{
+	if (!number)
+		return E_POINTER;
+
+	*number = max_data_entries;
+
+	return S_OK;
+}
+
+HRESULT StackLogger::put_MaximumDataEntries(LONG number)
+{
+	if (number < 0)
+		return E_INVALIDARG;
+
+	max_data_entries = number;
+
+	return S_OK;
+}
+
 HRESULT StackLogger::get_MaximumStackDepth(LONG *depth)
 {
 	if (!depth)
@@ -134,7 +155,7 @@ HRESULT StackLogger::get_HasData(BOOL *result)
 	try
 	{
 		auto data = tls.get_value();
-		*result = (data && data->stack_data) ? TRUE : FALSE;
+		*result = (data && data->exceptions.GetCount()) ? TRUE : FALSE;
 		return S_OK;
 	}
 	catch (...)
@@ -160,6 +181,42 @@ HRESULT StackLogger::get_HasOperationLogs(BOOL *result)
 	}
 }
 
+HRESULT StackLogger::get_AllData(SAFEARRAY **data)
+{
+	if (!data)
+		return E_POINTER;
+
+	try
+	{
+		auto tdata = tls.get_value();
+		if (!tdata)
+			return E_FAIL;
+
+		auto ndata = static_cast<LONG>(tdata->exceptions.GetCount());
+		if (!ndata)
+			return E_FAIL;
+
+		CComSafeArray<LPUNKNOWN> exceptions(ndata);
+		auto pos = tdata->exceptions.GetHeadPosition();
+		LONG i = 0;
+
+		while (pos)
+		{
+			auto hr = exceptions.SetAt(i++, tdata->exceptions.GetNext(pos));
+			if (FAILED(hr))
+				return hr;
+		}
+
+		*data = exceptions.Detach();
+	}
+	catch (...)
+	{
+		return E_FAIL;
+	}
+
+	return S_OK;
+}
+
 HRESULT StackLogger::get_Data(IStackData **data)
 {
 	if (!data)
@@ -167,11 +224,11 @@ HRESULT StackLogger::get_Data(IStackData **data)
 
 	try
 	{
-		auto thr_data = tls.get_value();
-		if (!thr_data || !thr_data->stack_data)
+		auto tdata = tls.get_value();
+		if (!tdata || !tdata->exceptions.GetCount())
 			return E_FAIL;
 
-		return thr_data->stack_data.CopyTo(data);
+		return tdata->exceptions.GetHead().CopyTo(data);
 	}
 	catch (...)
 	{
@@ -224,13 +281,14 @@ HRESULT StackLogger::ClearData()
 		if (!data)
 			return S_OK;
 		
-		data->stack_data.Release();
-		return S_OK;
+		data->exceptions.RemoveAll();
 	}
 	catch (...)
 	{
 		return E_FAIL;
 	}
+
+	return S_OK;
 }
 
 HRESULT StackLogger::ClearOperationLogs()
@@ -296,11 +354,11 @@ VOID StackLogger::HandleProcessException(PEXCEPTION_POINTERS pExceptionInfo)
 
 		auto dac = create_dac(dmod, dtarget.p);
 
+		// Dump.
 		try
 		{
-			// Dump.
 			exception_dumper dumper(dconf, dac, GetCurrentThreadId(), *this);
-			tdata->stack_data = dumper.run();
+			tdata->exceptions.AddHead(dumper.run());
 		}
 		catch (...)
 		{
@@ -309,6 +367,12 @@ VOID StackLogger::HandleProcessException(PEXCEPTION_POINTERS pExceptionInfo)
 		}
 
 		dac->Flush();
+
+		// Remove unused exception entries.
+		auto nremove = static_cast<int>(tdata->exceptions.GetCount()) - max_data_entries;
+
+		for (int i = 0; i < nremove; i++)
+			tdata->exceptions.RemoveTailNoReturn();
 	}
 	catch (CAtlException& e)
 	{

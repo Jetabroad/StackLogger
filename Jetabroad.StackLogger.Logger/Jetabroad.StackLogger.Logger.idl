@@ -133,12 +133,16 @@ library StackLogger
 		[propget] HRESULT InternalLoggingEnabled([out, retval] BOOL *enabled);
 		[propput] HRESULT InternalLoggingEnabled([in] BOOL enabled);
 
+		[propget] HRESULT MaximumDataEntries([out, retval] LONG *number);
+		[propput] HRESULT MaximumDataEntries([in] LONG number);
+
 		[propget] HRESULT MaximumStackDepth([out, retval] LONG *depth);
 		[propput] HRESULT MaximumStackDepth([in] LONG depth);
 
 		[propget] HRESULT HasData([out, retval] BOOL *result);
 		[propget] HRESULT HasOperationLogs([out, retval] BOOL *result);
 
+		[propget] HRESULT AllData([out, retval] SAFEARRAY(IStackData *) *data);
 		[propget] HRESULT Data([out, retval] IStackData **data);
 		[propget] HRESULT OperationLogs([out, retval] SAFEARRAY(IOperationLog *) *logs);
 

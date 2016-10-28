@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Runtime.InteropServices;
 using NUnit.Framework;
 
@@ -252,6 +253,79 @@ namespace Jetabroad.StackLogger.Api.Testing
                     Console.WriteLine($"[{DateTime.FromOADate(message.Time)}] {message.Message}");
                 }
             }
+        }
+
+        [TestCase(5)]
+        [TestCase(1)]
+        [TestCase(10)]
+        public void AllData_SetMaximumDataEntriesToSomeValue_NumberOfDataMustBeLessThanOrEqualMaximumDataEntries(int maximumDataEntries)
+        {
+            // Set Configurations.
+            stackLogger.Enabled = true;
+            stackLogger.MaximumDataEntries = maximumDataEntries;
+
+            // Run Test.
+            for (var i = 0; i <= maximumDataEntries + 5; i++)
+            {
+                try
+                {
+                    ThrowException<NotImplementedException>(i.ToString(CultureInfo.InvariantCulture));
+                }
+                catch
+                {
+                    // We will assert exception details after the loop.
+                }
+            }
+
+            // Assert.
+            Assert.That(stackLogger.HasData, Is.True);
+            Assert.That(stackLogger.AllData, Has.Length.LessThanOrEqualTo(maximumDataEntries));
+
+            var expectedArg1 = maximumDataEntries + 5;
+
+            foreach (var data in stackLogger.AllData)
+            {
+                var arg1 = (IStringValue)data.Frames[0].Parameters[0].Value;
+
+                Assert.That(arg1.Value, Is.EqualTo(expectedArg1.ToString(CultureInfo.InvariantCulture)));
+
+                expectedArg1--;
+            }
+        }
+
+        [Test]
+        public void AllData_SetMaximumDataEntriesToZero_HasDataMustBeFalse()
+        {
+            // Set Configurations.
+            stackLogger.Enabled = true;
+            stackLogger.MaximumDataEntries = 0;
+
+            // Run Test.
+            try
+            {
+                ThrowException<Exception>();
+            }
+            catch
+            {
+                // Assert.
+                Assert.That(stackLogger.HasData, Is.False);
+            }
+        }
+
+        [Test]
+        [ExpectedException(typeof(ArgumentException))]
+        public void MaximumDataEntries_SetToNegative_MustThrowException()
+        {
+            stackLogger.MaximumDataEntries = -1;
+        }
+
+        [TestCase(0)]
+        [TestCase(20)]
+        [TestCase(2)]
+        public void MaximumDataEntries_ChangeValue_ValueMustBeChanged(int value)
+        {
+            stackLogger.MaximumDataEntries = value;
+            Assert.That(stackLogger.MaximumDataEntries, Is.EqualTo(value));
         }
 
         static void ThrowException<TException>() where TException : Exception, new()

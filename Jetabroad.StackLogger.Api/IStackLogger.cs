@@ -10,6 +10,12 @@ namespace Jetabroad.StackLogger
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     public interface IStackLogger
     {
+        /// <summary>
+        /// Gets or sets a flags to turn on/off stack dumping when exception occur.
+        /// </summary>
+        /// <value>
+        /// A flags to turn on/off stack dumping when exception occur.
+        /// </value>
         bool Enabled
         {
             [return: MarshalAs(UnmanagedType.Bool)]
@@ -26,6 +32,23 @@ namespace Jetabroad.StackLogger
             [return: MarshalAs(UnmanagedType.Bool)]
             get;
             [param: MarshalAs(UnmanagedType.Bool)]
+            set;
+        }
+
+        /// <summary>
+        /// Gets or sets the maximum number of exception data that will be keep.
+        /// </summary>
+        /// <value>
+        /// The maximum number of exception data that will be keep.
+        /// </value>
+        /// <exception cref="ArgumentException">
+        /// Try to set the property with a negative value.
+        /// </exception>
+        int MaximumDataEntries
+        {
+            [return: MarshalAs(UnmanagedType.I4)]
+            get;
+            [param: MarshalAs(UnmanagedType.I4)]
             set;
         }
 
@@ -46,6 +69,12 @@ namespace Jetabroad.StackLogger
         bool HasOperationLogs
         {
             [return: MarshalAs(UnmanagedType.Bool)]
+            get;
+        }
+
+        IStackData[] AllData
+        {
+            [return: MarshalAs(UnmanagedType.SafeArray, SafeArraySubType = VarEnum.VT_UNKNOWN)]
             get;
         }
 
