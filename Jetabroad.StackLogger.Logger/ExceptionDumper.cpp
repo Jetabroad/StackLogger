@@ -164,6 +164,30 @@ CComPtr<IUnknown> exception_dumper::dump_array(IXCLRDataValue *array)
 	return adata;
 }
 
+CComPtr<IComplexValue> exception_dumper::dump_complex_object(IXCLRDataValue *obj)
+{
+	HRESULT hr;
+	CLRDATA_ENUM eh;
+
+	// Enumerate static fields.
+	hr = obj->StartEnumFields(CLRDATA_TYPE_ALL_KINDS | CLRDATA_FIELD_IS_INHERITED | CLRDATA_FIELD_FROM_STATIC, nullptr, &eh);
+	if (FAILED(hr))
+		AtlThrow(hr);
+
+	hr = obj->EndEnumFields(eh);
+	if (FAILED(hr))
+		AtlThrow(hr);
+
+	// Enumerate instance fields.
+	hr = obj->StartEnumFields(CLRDATA_TYPE_ALL_KINDS | CLRDATA_FIELD_IS_INHERITED | CLRDATA_FIELD_FROM_INSTANCE, nullptr, &eh);
+	if (FAILED(hr))
+		AtlThrow(hr);
+
+	hr = obj->EndEnumFields(eh);
+	if (FAILED(hr))
+		AtlThrow(hr);
+}
+
 CComPtr<IFrameData> exception_dumper::dump_frame(IXCLRDataFrame *frame)
 {
 	HRESULT hr;
@@ -356,6 +380,8 @@ CComPtr<IUnknown> exception_dumper::dump_object(IXCLRDataValue *obj)
 		return dump_array(obj);
 	else if (oflags & CLRDATA_VALUE_IS_STRING)
 		return dump_string(obj);
+	else if (oflags & CLRDATA_VALUE_IS_VALUE_TYPE)
+		return dump_complex_object(obj);
 	else
 		return dump_object_raw(obj);
 }

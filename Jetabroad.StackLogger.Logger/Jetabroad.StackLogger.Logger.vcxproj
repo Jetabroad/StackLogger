@@ -202,6 +202,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ArrayValue.h" />
+    <ClInclude Include="ComplexValue.h" />
     <ClInclude Include="DACTargetProvider.h" />
     <ClInclude Include="DAC.h" />
     <ClInclude Include="StackData.h" />
@@ -225,6 +226,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ArrayValue.cpp" />
+    <ClCompile Include="ComplexValue.cpp" />
     <ClCompile Include="DACTargetProvider.cpp" />
     <ClCompile Include="DAC.cpp" />
     <ClCompile Include="StackData.cpp" />

@@ -22,6 +22,7 @@ public:
 	CComPtr<IStackData> run();
 private: // Helpers.
 	CComPtr<IUnknown> dump_array(IXCLRDataValue *array);
+	CComPtr<IComplexValue> dump_complex_object(IXCLRDataValue *obj);
 	CComPtr<IFrameData> dump_frame(IXCLRDataFrame *frame);
 	CComPtr<IObjectDescriptor2> dump_method_argument(IXCLRDataFrame *frame, ULONG32 aidx);
 	CComPtr<IUnknown> dump_object(IXCLRDataValue *obj);
