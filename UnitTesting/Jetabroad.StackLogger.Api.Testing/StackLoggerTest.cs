@@ -170,6 +170,7 @@ namespace Jetabroad.StackLogger.Api.Testing
                 //change name to method name
                 Assert.That(stackLogger.Data.Frames[0].Name, Is.EqualTo("Jetabroad.StackLogger.Api.Testing.StackLoggerTest.Data_ThrowFromInstanceMethod_FirstFrameIsInstanceMethod()"));
                 Assert.That(stackLogger.Data.Frames[0].Parameters, Has.Length.EqualTo(1));
+                Assert.That(stackLogger.Data.Frames[0].Parameters[0].Name, Is.EqualTo("this"));
                 Assert.That(stackLogger.Data.Frames[0].Parameters[0].Type, Is.EqualTo("Jetabroad.StackLogger.Api.Testing.StackLoggerTest"));
                 Assert.That(stackLogger.Data.Frames[0].Parameters[0].Value as IRawValue, Is.Not.Null);
             }
@@ -217,6 +218,7 @@ namespace Jetabroad.StackLogger.Api.Testing
                 Assert.That(stackLogger.Data.Frames, Has.Length.EqualTo(2));
                 Assert.That(stackLogger.Data.Frames[0].Name, Is.EqualTo("Jetabroad.StackLogger.Api.Testing.StackLoggerTest.ThrowException[[System.__Canon, mscorlib]](System.String)"));
                 Assert.That(stackLogger.Data.Frames[0].Parameters.Length, Is.EqualTo(1));
+                Assert.That(stackLogger.Data.Frames[0].Parameters[0].Name, Is.EqualTo("arg1"));
                 Assert.That(stackLogger.Data.Frames[0].Parameters[0].Type, Is.EqualTo("System.String"));
 
                 //ThrowException is static method, therefore we can get it from parameter index 0
@@ -287,6 +289,7 @@ namespace Jetabroad.StackLogger.Api.Testing
             {
                 var arg1 = (IStringValue)data.Frames[0].Parameters[0].Value;
 
+                Assert.That(data.Frames[0].Parameters[0].Name, Is.EqualTo("arg1"));
                 Assert.That(arg1.Value, Is.EqualTo(expectedArg1.ToString(CultureInfo.InvariantCulture)));
 
                 expectedArg1--;
