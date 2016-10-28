@@ -1,17 +1,18 @@
-// Define the COM interfaces to be access by managed world.
+//main IDL file, to define the COM interfaces to be accessed by managed world.
 import "oaidl.idl";
 import "ocidl.idl";
 
 [
 	uuid(A153AF4D-36CE-4053-9C18-9F099CABF249),
-	version(1.0)
+	version(2.0)
 ]
 library StackLogger
 {
 	[
 		object,
 		local,
-		uuid(ED79F4B1-7987-4F2D-BA82-3EB0332D9E2E)
+		uuid(ED79F4B1-7987-4F2D-BA82-3EB0332D9E2E),
+		pointer_default(unique)
 	]
 	interface IUnknownValue : IUnknown
 	{
@@ -20,7 +21,8 @@ library StackLogger
 	[
 		object,
 		local,
-		uuid(1FDAB9BD-3BC9-4EDF-A6FD-FD3DA8FBFE6F)
+		uuid(1FDAB9BD-3BC9-4EDF-A6FD-FD3DA8FBFE6F),
+		pointer_default(unique)
 	]
 	interface INullValue : IUnknown
 	{
@@ -29,17 +31,19 @@ library StackLogger
 	[
 		object,
 		local,
-		uuid(E4F88112-CDA2-4762-AC42-349AD538B2A8)
+		uuid(E4F88112-CDA2-4762-AC42-349AD538B2A8),
+		pointer_default(unique)
 	]
 	interface IRawValue : IUnknown
 	{
-		[propget] HRESULT Value([out, retval] IStream **value);
+		[propget] HRESULT Value([out, retval] SAFEARRAY(BYTE) *value);
 	};
 
 	[
 		object,
 		local,
-		uuid(DB4DE73F-5DF3-4A28-B900-0C9AC7A47EBB)
+		uuid(DB4DE73F-5DF3-4A28-B900-0C9AC7A47EBB),
+		pointer_default(unique)
 	]
 	interface IStringValue : IUnknown
 	{
@@ -49,7 +53,8 @@ library StackLogger
 	[
 		object,
 		local,
-		uuid(ABAFE622-7FE8-40F4-9F33-17406169A604)
+		uuid(ABAFE622-7FE8-40F4-9F33-17406169A604),
+		pointer_default(unique)
 	]
 	interface IArrayValue : IUnknown
 	{
@@ -59,11 +64,11 @@ library StackLogger
 	[
 		object,
 		local,
-		uuid(CF4C6D5F-3758-4812-8A3D-A2EB0956BB5D)
+		uuid(E7CEBDB1-E8A5-40F9-BBEB-DC0B376D3444),
+		pointer_default(unique)
 	]
-	interface IMethodParameter : IUnknown
+	interface IObjectDescriptor : IUnknown
 	{
-		[propget] HRESULT Name([out, retval] BSTR *name);
 		[propget] HRESULT Type([out, retval] BSTR *name);
 		[propget] HRESULT Value([out, retval] IUnknown **value);
 	};
@@ -71,20 +76,33 @@ library StackLogger
 	[
 		object,
 		local,
-		uuid(A86EE8ED-B067-4366-8F23-9DD2DB09F385)
+		uuid(3D19AB7B-E022-4418-8358-182C57AFED43),
+		pointer_default(unique)
 	]
-	interface IFrameData : IUnknown
+	interface IObjectDescriptor2 : IObjectDescriptor
 	{
-		[propget] HRESULT Parameters([out, retval] SAFEARRAY(IMethodParameter *) *params);
 		[propget] HRESULT Name([out, retval] BSTR *name);
 	};
 
 	[
 		object,
 		local,
-		uuid(E0B138FC-48D7-4D1E-B6BF-D708EAEC9711)
+		uuid(A86EE8ED-B067-4366-8F23-9DD2DB09F385),
+		pointer_default(unique)
 	]
-	interface IDumpedData : IUnknown
+	interface IFrameData : IUnknown
+	{
+		[propget] HRESULT Parameters([out, retval] SAFEARRAY(IObjectDescriptor2 *) *params);
+		[propget] HRESULT Name([out, retval] BSTR *name);
+	};
+
+	[
+		object,
+		local,
+		uuid(E0B138FC-48D7-4D1E-B6BF-D708EAEC9711),
+		pointer_default(unique)
+	]
+	interface IStackData : IUnknown
 	{
 		[propget] HRESULT Frames([out, retval] SAFEARRAY(IFrameData *) *frames);
 	};
@@ -92,9 +110,10 @@ library StackLogger
 	[
 		object,
 		local,
-		uuid(BCFF3103-E5B8-4807-9F36-E274E619CE0E)
+		uuid(BCFF3103-E5B8-4807-9F36-E274E619CE0E),
+		pointer_default(unique)
 	]
-	interface IExceptionDumpingMessage : IUnknown
+	interface IOperationLog : IUnknown
 	{
 		[propget] HRESULT Time([out, retval] DATE *time);
 		[propget] HRESULT Message([out, retval] BSTR *msg);
@@ -103,47 +122,39 @@ library StackLogger
 	[
 		object,
 		local,
-		uuid(7ACBB0F4-B56D-4D07-AF2F-C786E96A6645)
+		uuid(B0B7FDE7-A41E-4264-A9B9-C073C14E4680),
+		pointer_default(unique)
 	]
-	interface IDataInterface : IUnknown
+	interface IStackLogger : IUnknown
 	{
-		[propget] HRESULT HasLastDumped([out, retval] VARIANT_BOOL *result);
-		[propget] HRESULT HasLastExceptionDumpingLogs([out, retval] VARIANT_BOOL *result);
+		[propget] HRESULT Enabled([out, retval] BOOL *enabled);
+		[propput] HRESULT Enabled([in] BOOL enabled);
 
-		HRESULT ClearLastDumped();
-		HRESULT QueryLastDumped([out, retval] IDumpedData **data);
-		HRESULT QueryLastExceptionDumpingLogs([out, retval] SAFEARRAY(IExceptionDumpingMessage *) *logs);
+		[propget] HRESULT InternalLoggingEnabled([out, retval] BOOL *enabled);
+		[propput] HRESULT InternalLoggingEnabled([in] BOOL enabled);
+
+		[propget] HRESULT MaximumDataEntries([out, retval] LONG *number);
+		[propput] HRESULT MaximumDataEntries([in] LONG number);
+
+		[propget] HRESULT MaximumStackDepth([out, retval] LONG *depth);
+		[propput] HRESULT MaximumStackDepth([in] LONG depth);
+
+		[propget] HRESULT HasData([out, retval] BOOL *result);
+		[propget] HRESULT HasOperationLogs([out, retval] BOOL *result);
+
+		[propget] HRESULT AllData([out, retval] SAFEARRAY(IStackData *) *data);
+		[propget] HRESULT Data([out, retval] IStackData **data);
+		[propget] HRESULT OperationLogs([out, retval] SAFEARRAY(IOperationLog *) *logs);
+
+		HRESULT ClearData();
+		HRESULT ClearOperationLogs();
 	};
 
 	[
-		object,
-		local,
-		uuid(669855E8-B4ED-46CB-9118-A80FA42A7F57)
+		uuid(525AEEF8-4464-4E9A-BFCC-CC61277E1D5E)
 	]
-	interface IGlobalConfiguration : IUnknown
+	coclass StackLogger
 	{
-		[propget] HRESULT EnabledExceptionDumper([out, retval] VARIANT_BOOL *enabled);
-		[propput] HRESULT EnabledExceptionDumper([in] VARIANT_BOOL enabled);
-		[propget] HRESULT LogExceptionDumping([out, retval] VARIANT_BOOL *enabled);
-		[propput] HRESULT LogExceptionDumping([in] VARIANT_BOOL enabled);
-		[propget] HRESULT MaximumStackDepth([out, retval] long *depth);
-		[propput] HRESULT MaximumStackDepth([in] long depth);
-		HRESULT Apply();
-	};
-
-	[
-		uuid(C3B2FDD9-79FB-43B4-B966-2283AC091D95)
-	]
-	coclass DataInterface
-	{
-		[default] interface IDataInterface;
-	};
-
-	[
-		uuid(C625CB3F-78AB-46E2-BAA4-431C529DAFD8)
-	]
-	coclass GlobalConfiguration
-	{
-		[default] interface IGlobalConfiguration;
+		[default] interface IStackLogger;
 	};
 }

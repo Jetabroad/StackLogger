@@ -9,12 +9,12 @@ RawValue::~RawValue()
 {
 }
 
-VOID RawValue::SetValue(const CComPtr<IStream>& pValue)
+VOID RawValue::SetValue(const CComSafeArray<BYTE>& value)
 {
-	m_pValue = pValue;
+	val = value;
 }
 
-HRESULT RawValue::get_Value(IStream **value)
+HRESULT RawValue::get_Value(SAFEARRAY **value)
 {
-	return m_pValue.CopyTo(value);
+	return val.CopyTo(value);
 }

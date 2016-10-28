@@ -1,6 +1,10 @@
+/StackLogger.VC.VC.opendb
 /StackLogger.VC.db
 /StackLogger.VC.opendb
 /StackLogger.sdf
 /.vs/
 /ipch/
+# not include all package to repository
 /packages/
+bin/
+obj/
