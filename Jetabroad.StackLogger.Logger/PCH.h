@@ -1,3 +1,5 @@
+// Copyright (c) 2018 Jetabroad (Thailand) Co., Ltd. All Rights Reserved.
+// Licensed under the MIT license. See the LICENSE.md file in the project root for license information.
 // This is pre-compiled header. Include any headers that rarely change in this header to reduce compilation time.
 // For more information, see https://en.wikipedia.org/wiki/Precompiled_header and https://msdn.microsoft.com/en-us/library/szfdksca.aspx.
 #pragma once

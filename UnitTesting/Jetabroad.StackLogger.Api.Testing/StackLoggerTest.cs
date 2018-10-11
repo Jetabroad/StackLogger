@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Copyright (c) 2018 Jetabroad (Thailand) Co., Ltd. All Rights Reserved.
+// Licensed under the MIT license. See the LICENSE.md file in the project root for license information.
+using System;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using NUnit.Framework;
