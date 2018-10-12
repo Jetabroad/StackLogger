@@ -11,6 +11,29 @@ library StackLogger
 	[
 		object,
 		local,
+		uuid(E7CEBDB1-E8A5-40F9-BBEB-DC0B376D3444),
+		pointer_default(unique)
+	]
+	interface IObjectDescriptor : IUnknown
+	{
+		[propget] HRESULT Type([out, retval] BSTR *name);
+		[propget] HRESULT Value([out, retval] IUnknown **value);
+	};
+
+	[
+		object,
+		local,
+		uuid(3D19AB7B-E022-4418-8358-182C57AFED43),
+		pointer_default(unique)
+	]
+	interface IObjectDescriptor2 : IObjectDescriptor
+	{
+		[propget] HRESULT Name([out, retval] BSTR *name);
+	};
+
+	[
+		object,
+		local,
 		uuid(ED79F4B1-7987-4F2D-BA82-3EB0332D9E2E),
 		pointer_default(unique)
 	]
@@ -64,24 +87,12 @@ library StackLogger
 	[
 		object,
 		local,
-		uuid(E7CEBDB1-E8A5-40F9-BBEB-DC0B376D3444),
+		uuid(0BFD63CA-465E-4A3E-9C1C-78E401888D2C),
 		pointer_default(unique)
 	]
-	interface IObjectDescriptor : IUnknown
+	interface IComplexValue : IUnknown
 	{
-		[propget] HRESULT Type([out, retval] BSTR *name);
-		[propget] HRESULT Value([out, retval] IUnknown **value);
-	};
-
-	[
-		object,
-		local,
-		uuid(3D19AB7B-E022-4418-8358-182C57AFED43),
-		pointer_default(unique)
-	]
-	interface IObjectDescriptor2 : IObjectDescriptor
-	{
-		[propget] HRESULT Name([out, retval] BSTR *name);
+		[propget] HRESULT Fields([out, retval] SAFEARRAY(IObjectDescriptor2 *) *fields);
 	};
 
 	[

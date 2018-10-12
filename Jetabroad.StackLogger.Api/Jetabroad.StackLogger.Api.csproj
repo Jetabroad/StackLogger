@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="ActivationCookie.cs" />
     <Compile Include="IArrayValue.cs" />
+    <Compile Include="IComplexValue.cs" />
     <Compile Include="IObjectDescriptor.cs" />
     <Compile Include="IStackData.cs" />
     <Compile Include="IOperationLog.cs" />

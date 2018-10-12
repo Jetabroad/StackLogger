@@ -92,6 +92,9 @@
     <ClInclude Include="StackLogger.h">
       <Filter>Source Files\Export</Filter>
     </ClInclude>
+    <ClInclude Include="ComplexValue.h">
+      <Filter>Source Files\Exception Details</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PCH.cpp">
@@ -153,6 +156,9 @@
     </ClCompile>
     <ClCompile Include="StackLogger.cpp">
       <Filter>Source Files\Export</Filter>
+    </ClCompile>
+    <ClCompile Include="ComplexValue.cpp">
+      <Filter>Source Files\Exception Details</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
